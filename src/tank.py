@@ -17,7 +17,15 @@ class Tank:
         self.x_speed=0
         self.muzzle=0
         self.ShotEffect=pygame.mixer.Sound("../assets/sounds/tankyShot.wav")
+        self.EngineEffect=pygame.mixer.Sound("../assets/sounds/tankyEngine.wav")
+        self.GunEffect=pygame.mixer.Sound("../assets/sounds/tankyGun.wav")
+        self.GunEffect.set_volume(0.2)
+        self.EngineEffect.set_volume(0.2)
     def action(self,event):
+        if not self.active:
+            self.x_speed=0
+            self.r_speed=0
+            return
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 self.x_speed=-0.25
@@ -51,7 +59,13 @@ class Tank1(Tank):
         Tank.__init__(self,pos_x,pos_y,game)
         self.Body=pygame.image.load(fp.tank1bodypath).convert_alpha()
         self.Gun_original=pygame.image.load(fp.tank1gunpath).convert_alpha()
+        self.Tracks=[]
+        self.Tracks.append(pygame.image.load("../assets/Tracks11.png").convert_alpha())
+        self.Tracks.append(pygame.image.load("../assets/Tracks12.png").convert_alpha())
         self.Gun=self.Gun_original
+        self.GunPlaying=False
+        self.EnginePlaying=False
+        self.Track=0
     def shoot(self):
         x=self.Gun.get_rect().size[0]
         y=self.Gun.get_rect().size[1]
@@ -60,10 +74,27 @@ class Tank1(Tank):
         self.game.bullets.append(b.Bullet(self.muzzle[0],self.muzzle[1],self.r))
         self.game.anim.append(a.ShotAnim(self.muzzle[0],self.muzzle[1],self.r))
     def update(self,terrain):
+        if self.r_speed!=0:
+            if self.GunPlaying==False:
+                self.GunPlaying=True
+                self.GunEffect.play(-1)
+        elif self.GunPlaying:
+            self.GunEffect.stop()
+            self.GunPlaying=False
+        if self.x_speed!=0:
+            self.Track=(self.Track+1)%2
+            if self.EnginePlaying==False:
+                self.EnginePlaying=True
+                self.EngineEffect.play(-1)
+        elif self.EnginePlaying:
+            self.EngineEffect.stop()
+            self.EnginePlaying=False
         self.y=900-terrain.get_height(self.x+28)-25
         if self.active == False:
             return
         nextx=self.x+self.x_speed
+        if nextx<-28 or nextx>1572:
+            nextx=self.x
         if self.x_speed != 0 and self.range>0:
             self.range-=1
         if terrain.get_height(int(self.x+28+5*self.x_speed))-terrain.get_height(int(self.x+28))<5 and self.range>0:
@@ -82,6 +113,7 @@ class Tank1(Tank):
         rect.center=(int(self.x+41+math.cos(self.r*math.pi/180)*length),int(self.y+7-math.sin(self.r*math.pi/180)*length))
         screen.blit(self.Gun,rect)
         screen.blit(self.Body,(int(self.x),self.y))
+        screen.blit(self.Tracks[self.Track],(int(self.x),self.y))
         pygame.draw.rect(screen,(163,150,0),pygame.Rect(self.x,self.y-25,self.Body.get_rect().size[0],5))
         pygame.draw.rect(screen,(50,117,26),pygame.Rect(self.x,self.y-20,self.Body.get_rect().size[0],5))
         if self.range>0: 
@@ -94,7 +126,13 @@ class Tank2(Tank):
         Tank.__init__(self,pos_x,pos_y,game)
         self.Body=pygame.image.load(fp.tank2bodypath).convert_alpha()
         self.Gun_original=pygame.image.load(fp.tank2gunpath).convert_alpha()
+        self.Tracks=[]
+        self.Tracks.append(pygame.image.load("../assets/Tracks21.png").convert_alpha())
+        self.Tracks.append(pygame.image.load("../assets/Tracks22.png").convert_alpha())
         self.Gun=self.Gun_original
+        self.GunPlaying=False
+        self.EnginePlaying=False
+        self.Track=0
     def shoot(self):
         x=self.Gun.get_rect().size[0]
         y=self.Gun.get_rect().size[1]
@@ -103,10 +141,27 @@ class Tank2(Tank):
         self.game.bullets.append(b.Bullet(self.muzzle[0],self.muzzle[1],self.r-180))
         self.game.anim.append(a.ShotAnim(self.muzzle[0],self.muzzle[1],self.r-180))
     def update(self,terrain):
+        if self.r_speed!=0:
+            if self.GunPlaying==False:
+                self.GunPlaying=True
+                self.GunEffect.play(-1)
+        elif self.GunPlaying:
+            self.GunEffect.stop()
+            self.GunPlaying=False
+        if self.x_speed!=0:
+            self.Track=(self.Track+1)%2
+            if self.EnginePlaying==False:
+                self.EnginePlaying=True
+                self.EngineEffect.play(-1)
+        elif self.EnginePlaying:
+            self.EngineEffect.stop()
+            self.EnginePlaying=False
         self.y=900-terrain.get_height(self.x+28)-25
         if self.active == False:
             return
         nextx=self.x+self.x_speed
+        if nextx<-28 or nextx>1571:
+            nextx=self.x
         if self.x_speed != 0 and self.range>0:
             self.range-=1
         if terrain.get_height(int(self.x+28+5*self.x_speed))-terrain.get_height(int(self.x+28))<5 and self.range>0:
@@ -125,6 +180,7 @@ class Tank2(Tank):
         rect.center=(int(self.x+14+math.cos((180+self.r)*math.pi/180)*length),int(self.y+7-math.sin((180+self.r)*math.pi/180)*length))
         screen.blit(self.Gun,rect)
         screen.blit(self.Body,(int(self.x),self.y))
+        screen.blit(self.Tracks[self.Track],(int(self.x),self.y))
         pygame.draw.rect(screen,(163,150,0),pygame.Rect(self.x,self.y-25,self.Body.get_rect().size[0],5))
         pygame.draw.rect(screen,(50,117,26),pygame.Rect(self.x,self.y-20,self.Body.get_rect().size[0],5))
         if self.range>0: 

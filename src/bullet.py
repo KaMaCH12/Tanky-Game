@@ -23,15 +23,14 @@ class Bullet:
         self.y+=int(self.y_speed-(self.l_speed*math.sin(self.og_r*math.pi/180)))
         self.r=int(math.atan((self.l_speed*math.sin(self.og_r*math.pi/180)-self.y_speed)/(self.l_speed*math.cos(self.og_r*math.pi/180)))*(180/math.pi))
         self.draw_texture=pg.transform.rotate(self.texture,self.r)
-        xoffset=self.draw_texture.get_rect().size[0]
-        if self.r< -90:
-            xoffset=-xoffset
-        yoffset=self.draw_texture.get_rect().size[1]
-        if(self.x+xoffset>1600 or self.x+xoffset<0):
+        if(self.x>1599 or self.x<1):
             self.alive=False
             return str("OutOfBounds")
-        elif(self.y+yoffset>=900-terrain.get_height(self.x+xoffset)): 
-            terrain.boom(self.x)
+        elif(self.y>=900-terrain.get_height(self.x)): 
+            if (terrain.get_height(self.x-1)>terrain.get_height(self.x+1)):
+                terrain.boom(self.x-1)
+            else:
+                terrain.boom(self.x+1)
             self.boom=True
             self.alive=False
         return self.alive

@@ -19,6 +19,8 @@ class HelpMenu:
             for event in pg.event.get():
                 if event.type==pg.KEYDOWN:
                     self.running = False
+                if event.type==pg.QUIT:
+                    self.running = False
     def draw(self,screen):
         screen.blit(self.HelpScreenTexture,(0,0))
 

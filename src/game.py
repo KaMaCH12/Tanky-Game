@@ -49,9 +49,9 @@ class Game:
                 if obj.boom:
                     self.anim.append(a.ExplosionAnim(obj.x))
                     if -77<(self.players[0].x-obj.x) and (self.players[0].x-obj.x)<20:
-                        self.players[0].hp-=20
+                        self.players[0].hp-=40
                     if -77<(self.players[1].x-obj.x) and (self.players[1].x-obj.x)<20:
-                        self.players[1].hp-=20
+                        self.players[1].hp-=40
                 self.bullets.remove(obj)
         for obj in self.anim:
             if (not obj.update(self.terrain)):
