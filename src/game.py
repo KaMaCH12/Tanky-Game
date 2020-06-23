@@ -4,7 +4,7 @@ import file_paths as fp
 import landscape as ld
 import skybox as sb
 import anim as a
-import texts as t
+import message as t
 
 screen_width=1600
 screen_height=900

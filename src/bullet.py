@@ -27,10 +27,7 @@ class Bullet:
             self.alive=False
             return str("OutOfBounds")
         elif(self.y>=900-terrain.get_height(self.x)): 
-            if (terrain.get_height(self.x-1)>terrain.get_height(self.x+1)):
-                terrain.boom(self.x-1)
-            else:
-                terrain.boom(self.x+1)
+            terrain.boom(self.x,self.y)
             self.boom=True
             self.alive=False
         return self.alive

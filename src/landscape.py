@@ -32,7 +32,6 @@ class Landscape:
             else:
                 run_length-=1
         
-        #check if proper
         avg_height=(self.min_height+self.max_height)/2
         if self.height_map[0]>self.height_map[self.total_points-1]+100 or self.height_map[0]<self.height_map[self.total_points-1]-100:
             self.generate()
@@ -45,10 +44,10 @@ class Landscape:
         x_point=int(x/self.grid_size)
         self.height_map[x_point]=height
 
-    def boom(self,x):
+    def boom(self,x,y):
         self.BoomEffect.play()
         r=50
-        h=self.get_height(int(x))
+        h=900-int(y)
         for pos in range(int(x)-r,int(x)+r):
             if pos>0 and pos<1600:
                 dy=math.cos(math.asin((pos-int(x))/r))*r
