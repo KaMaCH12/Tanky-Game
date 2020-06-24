@@ -7,7 +7,7 @@ screen_height=900
 
 class MainMenu:
     def __init__(self,screen):
-        self.BtnEffect=pg.mixer.Sound("../assets/sounds/tankyClick3.wav")
+        self.BtnEffect=pg.mixer.Sound(fp.btneffect)
         self.running=True
         self.screen=screen
         self.TitleScreenTexture=pg.image.load(fp.TitleScreenPath).convert_alpha()

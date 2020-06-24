@@ -10,7 +10,7 @@ class Landscape:
         self.total_points=total_points+1
         self.grid_size=1600/total_points
         self.height_map=[]
-        self.BoomEffect=pygame.mixer.Sound("../assets/sounds/tankyBoom.wav")
+        self.BoomEffect=pygame.mixer.Sound(fp.boomeffect)
     def generate(self):
         self.height_map=[]
         last_x=0

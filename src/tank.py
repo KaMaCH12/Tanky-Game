@@ -16,9 +16,9 @@ class Tank:
         self.r_speed=0
         self.x_speed=0
         self.muzzle=0
-        self.ShotEffect=pygame.mixer.Sound("../assets/sounds/tankyShot.wav")
-        self.EngineEffect=pygame.mixer.Sound("../assets/sounds/tankyEngine.wav")
-        self.GunEffect=pygame.mixer.Sound("../assets/sounds/tankyGun.wav")
+        self.ShotEffect=pygame.mixer.Sound(fp.shoteffect)
+        self.EngineEffect=pygame.mixer.Sound(fp.engineeffect)
+        self.GunEffect=pygame.mixer.Sound(fp.guneffect)
         self.GunEffect.set_volume(0.2)
         self.EngineEffect.set_volume(0.2)
     def action(self,event):
@@ -60,8 +60,8 @@ class Tank1(Tank):
         self.Body=pygame.image.load(fp.tank1bodypath).convert_alpha()
         self.Gun_original=pygame.image.load(fp.tank1gunpath).convert_alpha()
         self.Tracks=[]
-        self.Tracks.append(pygame.image.load("../assets/Tracks11.png").convert_alpha())
-        self.Tracks.append(pygame.image.load("../assets/Tracks12.png").convert_alpha())
+        self.Tracks.append(pygame.image.load(fp.tracks11).convert_alpha())
+        self.Tracks.append(pygame.image.load(fp.tracks12).convert_alpha())
         self.Gun=self.Gun_original
         self.GunPlaying=False
         self.EnginePlaying=False
@@ -127,8 +127,8 @@ class Tank2(Tank):
         self.Body=pygame.image.load(fp.tank2bodypath).convert_alpha()
         self.Gun_original=pygame.image.load(fp.tank2gunpath).convert_alpha()
         self.Tracks=[]
-        self.Tracks.append(pygame.image.load("../assets/Tracks21.png").convert_alpha())
-        self.Tracks.append(pygame.image.load("../assets/Tracks22.png").convert_alpha())
+        self.Tracks.append(pygame.image.load(fp.tracks21).convert_alpha())
+        self.Tracks.append(pygame.image.load(fp.tracks22).convert_alpha())
         self.Gun=self.Gun_original
         self.GunPlaying=False
         self.EnginePlaying=False
